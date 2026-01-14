@@ -21,15 +21,11 @@ Your data file must contain these columns (names can be upper/lower case):
 - `date` (example: 2025-01-05)
 - `age` (example: 72)
 - `council_area` (example: Glasgow City)
-
-Example CSV:
-
-```csv
+## Example CSV:
 date,age,council_area
 2025-01-05,34,Glasgow City
 2025-01-07,72,Glasgow City
 2025-01-10,19,Edinburgh
-
 ## What you will get after running
 The script creates an outputs/ folder (if it does not exist) and saves:
 CSV files
@@ -40,7 +36,6 @@ Plot images (PNG)
 •	monthly_plot.png
 •	deaths_by_council_stacked.png
 •	deaths_by_agegroup_stacked.png
-
 ## How to run the script
 Option 1: Run in RStudio
 Open Monthly_Stats_R_script.R and click Run.
@@ -49,7 +44,6 @@ Go to the project folder and run:
 Rscript Monthly_Stats_R_script.R
 If it works, you will see:
 Monthly update completed successfully.
-
 ## Packages needed
 This script uses these R packages:
 •	tidyverse
@@ -57,7 +51,6 @@ This script uses these R packages:
 •	readxl
 Install them once:
 install.packages(c("tidyverse", "lubridate", "readxl"))
-
 ## Monthly automation 
 This script can be scheduled to run once per month using:
 •	Windows Task Scheduler
