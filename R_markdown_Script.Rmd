@@ -1,0 +1,92 @@
+---
+title: "Reproducible Reporting for Monthly Statistics"
+author: "Rumana Haque"
+date: "2025-12-06"
+output: html_document
+---
+```{r setup, include=FALSE}
+# Tell knitr what the project root is (folder that has the script and 'data' folder)
+knitr::opts_knit$set(
+  root.dir = "C:/Users/ruman/Desktop/2. Jobs 2025/7. Scottish Gov_Statistical Support Analyst/Interview/R script")
+
+# Load required packages
+#library(tidyverse)
+#ibrary(lubridate)
+```
+
+## Monthly Official Statistics
+
+```{r include=FALSE}
+# Source the pipeline script
+# This runs Monthly_Stats_R_script.R and creates:
+# - monthly_summary
+# - plot_monthly
+source("Monthly_Stats_R_script.R")
+```
+
+```{r derived_summaries, include=FALSE}
+# Date range (using rounded month column)
+start_month <- min(clean$month, na.rm = TRUE)
+end_month   <- max(clean$month, na.rm = TRUE)
+```
+
+```{r council_summary, include=FALSE}
+# total_by_council was created in the script
+# Find the council with highest and lowest total deaths
+highest_council <- total_by_council[which.max(total_by_council$total_deaths), ]
+lowest_council  <- total_by_council[which.min(total_by_council$total_deaths), ]
+
+# Age group with the most deaths
+top_age_group <- total_by_age_group[which.max(total_by_age_group$total_deaths_age), ]
+
+# Number of months covered 
+n_months <- length(unique(clean$month))
+```
+
+## Summary Statistics 
+```{r}
+monthly_summary
+```
+
+## Deaths by council area
+```{r}
+total_by_council
+```
+
+## Deaths by age group
+```{r}
+total_by_age_group
+```
+
+## Monthly Trend Plot
+```{r echo=FALSE, echo=FALSE}
+## Monthly Trend Plot
+plot_monthly
+```
+
+## Deaths per Month by Council Area
+```{r, echo=FALSE}
+plot_by_council
+```
+
+## Deaths per Month by Age Group
+```{r, echo=FALSE}
+plot_by_age
+```
+
+## Key Findings
+- In total, there were `r total_deaths_all` recorded deaths across 
+`r nrow(total_by_council)` council areas between 
+`r format(start_month, "%B %Y")` and `r format(end_month, "%B %Y")`.
+
+- Across these `r n_months` months, the highest number of recorded deaths was in 
+`r highest_council$council_area` (`r highest_council$total_deaths` deaths),
+while the lowest was in `r lowest_council$council_area`
+(`r lowest_council$total_deaths` deaths).
+
+- The age group with the highest number of deaths was 
+`r top_age_group$age_group` (`r top_age_group$total_deaths_age` deaths)
+over this period.
+
+
+
